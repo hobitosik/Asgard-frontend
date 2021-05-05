@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  front:
+    image: "exclusivelogin/asgard-front"
+    ports:
+    - "9000:80"
+  back:
+    image: "exclusivelogin/asgard-back"
+    ports:
+    - "9001:3000"
+    volumes:
+    - "/var/www/html/asgard_backend/uploads/:/usr/src/app/uploads/"
