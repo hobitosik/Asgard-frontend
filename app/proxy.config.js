@@ -4,7 +4,7 @@ const PROXY_CONFIG = [
         target: 'http://185.178.46.248:9001',
         changeOrigin: true,
         secure: false,
-        logLevel: "debug",
+        // logLevel: "debug",
     },
 ]
 

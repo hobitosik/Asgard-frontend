@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -16,6 +17,7 @@ import { AuthGuard } from './auth/auth.guard';
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
+        HttpClientModule,
     ],
     providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
