@@ -8,8 +8,12 @@
             <ion-label position="floating">Пароль</ion-label>
             <ion-input name="password" ngModel type="password" required="true"></ion-input>
         </ion-item>
-        <!-- <ion-item lines="none"> -->
-            <ion-button type="submit" expand="block" (click)="login( form )">Войти</ion-button>
-        <!-- </ion-item> -->
+        <ion-item *ngIf="isLoginError">
+            <ion-note color="danger">
+                Вы указали неверный логин или пароль
+            </ion-note>
+        </ion-item>
+        <br>
+        <ion-button type="submit" expand="block" (click)="login( form )">Войти</ion-button>
     </form>
 </ion-content>

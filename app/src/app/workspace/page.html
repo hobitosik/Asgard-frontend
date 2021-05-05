@@ -20,6 +20,10 @@
                         <ion-label>{{ p.title }}</ion-label>
                     </ion-item>
                 </ion-menu-toggle>
+                <ion-item button (click)="logout()">
+                    <ion-icon slot="start" ios="exit-outline" md="exit-sharp"></ion-icon>
+                    <ion-label>Выйти</ion-label>
+                </ion-item>
             </ion-list>
         </ion-content>
     </ion-menu>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     selector: 'app-folder',
@@ -19,11 +20,18 @@ export class Page implements OnInit {
         { title: 'Настройки', url: '/page/settings', icon: 'settings' },
     ];
 
-    constructor(private activatedRoute: ActivatedRoute) { }
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private authSrv: AuthService
+    ){ }
 
     ngOnInit(){
         // console.log('[INIT][PAGE]', this.activatedRoute)
         this.page = this.activatedRoute.snapshot.paramMap.get('id');
+    }
+
+    logout(){
+        this.authSrv.logout();
     }
 
 }

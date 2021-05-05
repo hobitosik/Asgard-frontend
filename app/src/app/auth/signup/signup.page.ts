@@ -1,15 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+    selector: 'app-signup',
+    templateUrl: './signup.page.html',
+    styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
+    public isIdenticPass = true;
 
-  constructor() { }
+    constructor(
+        private authSrv: AuthService
+    ){ }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    signup( form: NgForm ){
+        console.log('[DEV][SIGNUP][FORM] value: ', form.value );
+        if( form.value.password === form.value.passwordRepeat ) this.isIdenticPass = false;
+        this.authSrv.signup( form.value.login, form.value.password )
+    }
 
 }

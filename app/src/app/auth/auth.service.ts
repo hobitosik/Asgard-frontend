@@ -1,35 +1,34 @@
 import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { BehaviorSubject, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { IAuthResponse } from '../interfaces/response.interfaces';
+import { Plugins } from "@capacitor/core";
+import { catchError } from 'rxjs/operators';
 
-const TOKEN_KEY = 'auth-token';
+export const TOKEN_KEY = 'auth-token';
+const { Storage } = Plugins;
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-
-    token;
-
     public _authState$:BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor(
-        private storage: NativeStorage,
-        private plt: Platform,
+        // private plt: Platform,
         private http: HttpClient,
         private router: Router
     ){
         // this.plt.ready().then(() => {
         //     this.checkToken();
         // });
+        // console.log('[DEV][AUTH]', this)
     }
 
     public checkToken() {
-        this.storage.getItem(TOKEN_KEY).then(res => {
+        Storage.get({ key: TOKEN_KEY }).then(res => {
             if( res ){
                 this._authState$.next(true);
             }
@@ -37,8 +36,8 @@ export class AuthService {
     }
 
     public signup( login: string, password: string ){
-        this.http.put(`${environment.apiUri}/auth`, { login: login, password: password }).subscribe(( resp: any )=>{
-            console.log('[DEV][AUTH][LOGIN]', resp)
+        this.http.put('/asgard-api/auth', { login: login, password: password }).subscribe(( resp: IAuthResponse )=>{
+            console.log('[DEV][AUTH][SIGNUP]', resp)
             // this.router.navigate(['profile']);
             // localStorage.setItem('auth_token', resp.token);
         })
@@ -46,21 +45,31 @@ export class AuthService {
 
     public login( login: string, password: string ){
 
-        this.http.post(`${environment.apiUri}/auth`, { login: login, password: password }).subscribe(( resp: any )=>{
-            console.log('[DEV][AUTH][LOGIN]', resp)
-            // this.router.navigate(['profile']);
-            // localStorage.setItem('auth_token', resp.token);
-
-            return this.storage.setItem(TOKEN_KEY, resp.token).then(() => {
-                this._authState$.next(true);
-            });
+        this.http.post('/asgard-api/auth', { login: login, password: password }).subscribe(
+            ( resp: IAuthResponse )=>{
+                console.log('[DEV][AUTH][LOGIN]', resp)
+                // localStorage.setItem('auth_token', resp.token);
+                return Storage.set({ key: TOKEN_KEY, value: resp.token}).then(() => {
+                    this._authState$.next( resp.auth );
+                    this.router.navigate(['/']);
+                }),
+            ( error )=>{
+                console.log('error', error)
+                return error
+            }
         })
     }
 
     public logout(){
-        return this.storage.remove(TOKEN_KEY).then(() => {
-            this._authState$.next(false);
-        });
+
+        this.http.delete('/asgard-api/auth').subscribe(( resp: IAuthResponse )=>{
+            console.log('[DEV][AUTH][LOGOUT]', resp)
+            // localStorage.setItem('auth_token', resp.token);
+            return Storage.remove({ key: TOKEN_KEY }).then(() => {
+                this._authState$.next(false);
+                this.router.navigate(['/']);
+            });
+        })
     }
 
     public isAuthenticated(){

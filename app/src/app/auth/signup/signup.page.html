@@ -1,9 +1,24 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>Регистрация</ion-title>
-    </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+    <form #form="ngForm">
+        <ion-item lines="full">
+            <ion-label position="floating">Логин</ion-label>
+            <ion-input name="login" ngModel required="true"></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-label position="floating">Пароль</ion-label>
+            <ion-input name="password" ngModel type="password" required="true"></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-label position="floating">Пароль</ion-label>
+            <ion-input name="passwordRepeat" ngModel type="password" required="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label class="ion-text-wrap">
+                <ion-note *ngIf="!isIdenticPass" color="danger">Пароли не совпадают</ion-note><br>
+                <ion-note color="danger">Даный логин уже существует</ion-note>
+            </ion-label>
+        </ion-item>
+        <br>
+        <ion-button type="submit" expand="block" (click)="signup( form )">Зарегистрироваться</ion-button>
+    </form>
 </ion-content>
