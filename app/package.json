@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "asgard",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -12,7 +12,7 @@
     "e2e": "ng e2e",
     "docker:build": "sudo npm i && sudo docker build -t exclusivelogin/asgard-front .",
     "docker:publish": "npm run docker:build && sudo docker login && sudo docker push exclusivelogin/asgard-front",
-    "docker:run": "sudo docker pull exclusivelogin/asgard-front && sudo docker run --rm -d -p 8092:80 exclusivelogin/asgard-front",
+    "docker:run": "sudo docker pull exclusivelogin/asgard-front && sudo docker run --rm -d -p 8092:80 exclusivelogin/asgard-front"
   },
   "private": true,
   "dependencies": {
@@ -39,8 +39,8 @@
     "@angular/compiler-cli": "~11.2.0",
     "@angular/language-service": "~11.2.0",
     "@capacitor/cli": "2.4.7",
-    "@ionic/angular-toolkit": "^3.1.1",
     "@ionic-native/native-storage": "^5.32.1",
+    "@ionic/angular-toolkit": "^3.1.1",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
@@ -52,7 +52,7 @@
     "eslint-plugin-prefer-arrow": "1.2.2",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~5.2.0",
+    "karma": "^6.3.2",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-coverage-istanbul-reporter": "~3.0.2",
