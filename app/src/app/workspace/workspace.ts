@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
-    selector: 'app-folder',
+    selector: 'app-workspace',
     templateUrl: './workspace.html',
     styleUrls: ['./workspace.scss'],
 })
