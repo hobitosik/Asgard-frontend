@@ -1,0 +1,15 @@
+<ion-content>
+    <form #form="ngForm" (ngSubmit)="login( form )">
+        <ion-item lines="full">
+            <ion-label position="floating">Логин</ion-label>
+            <ion-input name="login" ngModel required="true"></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-label position="floating">Пароль</ion-label>
+            <ion-input name="password" ngModel type="password" required="true"></ion-input>
+        </ion-item>
+        <!-- <ion-item lines="none"> -->
+            <ion-button type="submit" expand="block" (click)="login( form )">Войти</ion-button>
+        <!-- </ion-item> -->
+    </form>
+</ion-content>
