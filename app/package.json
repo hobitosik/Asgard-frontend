@@ -9,7 +9,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "docker:build": "sudo npm i && sudo docker build -t exclusivelogin/asgard-front .",
+    "docker:publish": "npm run docker:build && sudo docker login && sudo docker push exclusivelogin/asgard-front",
+    "docker:run": "sudo docker pull exclusivelogin/asgard-front && sudo docker run --rm -d -p 8092:80 exclusivelogin/asgard-front",
   },
   "private": true,
   "dependencies": {
