@@ -16,7 +16,7 @@ const routes: Routes = [
     {
         path: 'workspace',
         canLoad: [ AuthGuard ],
-        loadChildren: () => import('./workspace/page.module').then( m => m.PageModule)
+        loadChildren: () => import('./workspace/workspace.module').then( m => m.WorkspaceModule)
     },
     {
         path: '**',

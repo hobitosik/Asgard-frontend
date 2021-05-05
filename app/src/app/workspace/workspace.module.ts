@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PageRoutingModule } from './page-routing.module';
+import { WorkspaceRoutingModule } from './workspace-routing.module';
 
-import { Page } from './page';
+import { Workspace } from './workspace';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        PageRoutingModule
+        WorkspaceRoutingModule
     ],
-    declarations: [Page]
+    declarations: [Workspace]
 })
-export class PageModule {}
+export class WorkspaceModule {}
