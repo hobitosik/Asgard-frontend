@@ -35,6 +35,15 @@ const routes: Routes = [
             path: 'settings',
             loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
         },{
+            path: 'canopies',
+            loadChildren: () => import('./canopies/canopies.module').then( m => m.CanopiesPageModule)
+        },{
+            path: 'harnesses',
+            loadChildren: () => import('./harnesses/harnesses.module').then( m => m.HarnessesPageModule)
+        },{
+            path: 'aads',
+            loadChildren: () => import('./aads/aads.module').then( m => m.AadsPageModule)
+        },{
             path: '',
             redirectTo: '/workspace/summary',
             pathMatch: 'full'

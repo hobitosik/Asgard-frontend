@@ -12,6 +12,9 @@ export class Workspace implements OnInit {
     public appPages = [
         { title: 'Сводка', url: '/workspace/summary', icon: 'stats-chart' },
         { title: 'Журнал прыжков', url: '/workspace/jumps', icon: 'accessibility' },
+        { title: 'Парашюты', url: '/workspace/canopies', icon: 'umbrella' },
+        { title: 'Ранцы', url: '/workspace/harnesses', icon: 'tablet-portrait' },
+        { title: 'Приборы', url: '/workspace/aad', icon: 'shield' },
         { title: 'Системы', url: '/workspace/systems', icon: 'cube' },
         { title: 'Допуски', url: '/workspace/entrances', icon: 'ticket' },
         { title: 'Страховки', url: '/workspace/insurances', icon: 'leaf' },
