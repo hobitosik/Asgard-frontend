@@ -34,7 +34,7 @@ export class Workspace implements OnInit {
     }
 
     logout(){
-        this.authSrv.logout();
+        this.authSrv.logout().subscribe();
     }
 
 }

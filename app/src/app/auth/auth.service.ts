@@ -97,14 +97,34 @@ export class AuthService {
         )
     }
 
-    public logout(){
-
-        this.http.delete('/asgard-api/auth').subscribe(( resp: IAuthResponse )=>{
-            console.log('[DEV][AUTH][LOGOUT]', resp)
-            return Storage.remove({ key: TOKEN_KEY }).then(()=>{
-                this.router.navigate(['/']);
-            });
-        })
+    public logout(): Observable<any>{
+        return this.http.delete('/asgard-api/auth').pipe(
+            map(( response: IAuthResponse )=>{
+                console.log('[DEV][AUTH][LOGOUT]', response);
+                return Storage.remove({ key: TOKEN_KEY }).then(()=>{
+                    this.router.navigate(['/']);
+                });
+            }),
+            catchError( error =>{
+                console.warn('[DEV][AUTH][LOGOUT] error', error)
+                return from(this.toast
+                    .create({
+                        header: 'Ошибка выхода из приложения',
+                        // message: 'Вы указали неверный логин или пароль',
+                        duration: 10000,
+                        color: 'danger',
+                        position: 'middle',
+                        buttons: [{
+                            text: 'Ясно',
+                            role: 'cancel',
+                            handler: () => this.toast.dismiss()
+                        }]
+                    })
+                    .then( t =>{ t.present() })
+                    .then(()=>{ throw error; })
+                );
+            })
+        )
     }
 
     public isAuthenticated$(){
