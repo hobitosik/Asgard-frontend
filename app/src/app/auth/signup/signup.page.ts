@@ -19,8 +19,16 @@ export class SignupPage implements OnInit {
 
     signup( form: NgForm ){
         console.log('[DEV][SIGNUP][FORM] value: ', form.value );
-        if( form.value.password === form.value.passwordRepeat ) this.isIdenticPass = false;
-        this.authSrv.signup( form.value.login, form.value.password )
+        if( form.value.password !== form.value.passwordRepeat ){
+            this.isIdenticPass = false;
+            return null
+        }else this.isIdenticPass = true;
+        this.authSrv.signup( form.value.login, form.value.password ).subscribe()
+    }
+
+    passCompare( form: NgForm, event ){
+        // console.log('event', event.target.value )
+        this.isIdenticPass = form.value.password !== event.target.value ? false : true;
     }
 
 }

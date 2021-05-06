@@ -9,16 +9,21 @@
             <ion-input name="password" ngModel type="password" required="true"></ion-input>
         </ion-item>
         <ion-item lines="full">
-            <ion-label position="floating">Пароль</ion-label>
-            <ion-input name="passwordRepeat" ngModel type="password" required="true"></ion-input>
+            <ion-label position="floating">Повторите пароль</ion-label>
+            <ion-input name="passwordRepeat" ngModel type="password" required="true"
+                (ionChange)="passCompare( form, $event )"
+            ></ion-input>
         </ion-item>
-        <ion-item>
-            <ion-label class="ion-text-wrap">
-                <ion-note *ngIf="!isIdenticPass" color="danger">Пароли не совпадают</ion-note><br>
-                <ion-note color="danger">Даный логин уже существует</ion-note>
+        <ion-item *ngIf="!isIdenticPass">
+            <ion-label class="ion-text-wrap" color="danger">
+                Пароли не совпадают
             </ion-label>
         </ion-item>
-        <br>
-        <ion-button type="submit" expand="block" (click)="signup( form )">Зарегистрироваться</ion-button>
     </form>
 </ion-content>
+<ion-footer translucent>
+    <ion-button type="submit" expand="block"
+        [disabled]="form.invalid || !isIdenticPass"
+        (click)="signup( form )"
+    >Зарегистрироваться</ion-button>
+</ion-footer>

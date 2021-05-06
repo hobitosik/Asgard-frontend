@@ -8,7 +8,6 @@ import { AuthService } from '../auth.service';
     styleUrls: ['./signin.page.scss'],
 })
 export class SigninPage implements OnInit {
-    public isLoginError: boolean = false;
 
     constructor(
         private authSrv: AuthService
@@ -19,7 +18,7 @@ export class SigninPage implements OnInit {
 
     login( form: NgForm ){
         console.log('[DEV][LOGIN][FORM] value: ', form.value )
-        this.authSrv.login( form.value.login, form.value.password )
+        this.authSrv.login( form.value.login, form.value.password ).subscribe()
     }
 
 }

@@ -1,6 +1,7 @@
 export interface IAuthResponse {
-    auth: boolean,
     login: string,
     id?: number,
+    auth?: boolean,
+    signup?: boolean,
     token?: string,
 }
