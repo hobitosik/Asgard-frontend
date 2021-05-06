@@ -1,6 +1,6 @@
 import { ToastController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { IAuthResponse } from '../interfaces/response.interfaces';
@@ -14,10 +14,8 @@ const { Storage } = Plugins;
     providedIn: 'root'
 })
 export class AuthService {
-    public _authState$:BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor(
-        // private plt: Platform,
         private http: HttpClient,
         private router: Router,
         private toast: ToastController,
@@ -25,12 +23,13 @@ export class AuthService {
         // console.log('[DEV][AUTH]', this)
     }
 
-    public checkToken() {
-        Storage.get({ key: TOKEN_KEY }).then(res => {
-            if( res ){
-                this._authState$.next(true);
+    private checkToken$(): Observable<boolean> {
+        return from( Storage.get({ key: TOKEN_KEY }) ).pipe(
+            map( token =>{
+                console.log('[DEV][AUTH] checkToken', token)
+                return token && token.value ? true : false
             }
-        })
+        ))
     }
 
     public signup( login: string, password: string ){
@@ -38,8 +37,7 @@ export class AuthService {
             map(( response: IAuthResponse )=>{
                 console.log('[DEV][AUTH][SIGNUP]', response)
                 if( response.signup )
-                    return Storage.set({ key: TOKEN_KEY, value: response.token}).then(() => {
-                        this._authState$.next( response.signup );
+                    return Storage.set({ key: TOKEN_KEY, value: response.token}).then(()=>{
                         this.router.navigate(['/']);
                     })
                 else return null
@@ -73,7 +71,6 @@ export class AuthService {
                 console.log('[DEV][AUTH][LOGIN]', response)
                 if( response.auth )
                     return Storage.set({ key: TOKEN_KEY, value: response.token}).then(() => {
-                        this._authState$.next( response.auth );
                         this.router.navigate(['/']);
                     })
                 else return null
@@ -104,15 +101,13 @@ export class AuthService {
 
         this.http.delete('/asgard-api/auth').subscribe(( resp: IAuthResponse )=>{
             console.log('[DEV][AUTH][LOGOUT]', resp)
-            // localStorage.setItem('auth_token', resp.token);
-            return Storage.remove({ key: TOKEN_KEY }).then(() => {
-                this._authState$.next(false);
+            return Storage.remove({ key: TOKEN_KEY }).then(()=>{
                 this.router.navigate(['/']);
             });
         })
     }
 
-    public isAuthenticated(){
-        return this._authState$.value;
+    public isAuthenticated$(){
+        return this.checkToken$()
     }
 }
