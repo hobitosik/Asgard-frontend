@@ -10,15 +10,21 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+// import { TermService } from './terms/term.service';
+import { TermPipe } from './terms/term.pipe';
+import { TermsModule } from './terms/terms.module';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [
+        AppComponent,
+    ],
     entryComponents: [],
     imports: [
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
         HttpClientModule,
+        TermsModule.forRoot(),
     ],
     providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -28,7 +34,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true
-        }
+        },
+        TermPipe
     ],
     bootstrap: [AppComponent],
 })

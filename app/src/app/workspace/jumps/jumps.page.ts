@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { FormService } from '../forms/form.service';
 
 @Component({
-  selector: 'app-jumps',
-  templateUrl: './jumps.page.html',
-  styleUrls: ['./jumps.page.scss'],
+    selector: 'app-jumps',
+    templateUrl: './jumps.page.html',
+    styleUrls: ['./jumps.page.scss'],
 })
 export class JumpsPage implements OnInit {
 
-  constructor() { }
+    constructor(
+        private formSrv: FormService
+    ){}
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    public addEnt(){
+        this.formSrv.openForm( 'jump' )
+    }
 }

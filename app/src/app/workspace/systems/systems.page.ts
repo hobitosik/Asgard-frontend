@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { FormService } from '../forms/form.service';
 
 @Component({
-  selector: 'app-systems',
-  templateUrl: './systems.page.html',
-  styleUrls: ['./systems.page.scss'],
+    selector: 'app-systems',
+    templateUrl: './systems.page.html',
+    styleUrls: ['./systems.page.scss'],
 })
 export class SystemsPage implements OnInit {
 
-  constructor() { }
+    constructor(
+        private formSrv: FormService
+    ){}
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    public addEnt(){
+        this.formSrv.openForm( 'system' )
+    }
 }

@@ -1,0 +1,35 @@
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-title>{{ entKey }} {{ entId ? '№' + entId : '' }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button
+                (click)="close()"
+            >
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ng-container [ngSwitch]="entKey">
+        <app-aad-form 
+            *ngSwitchCase="'aad'"
+            [entId]="entId"
+        ></app-aad-form>
+        <div *ngSwitchDefault>...</div>
+    </ng-container>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-button slot="start" color="light">
+            Отменить
+        </ion-button>
+        <ion-button slot="end" color="primary"
+            (click)="save()"
+        >
+            Сохранить
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

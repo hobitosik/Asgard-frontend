@@ -14,7 +14,7 @@ export class Workspace implements OnInit {
         { title: 'Журнал прыжков', url: '/workspace/jumps', icon: 'accessibility' },
         { title: 'Парашюты', url: '/workspace/canopies', icon: 'umbrella' },
         { title: 'Ранцы', url: '/workspace/harnesses', icon: 'tablet-portrait' },
-        { title: 'Приборы', url: '/workspace/aad', icon: 'shield' },
+        { title: 'Приборы', url: '/workspace/aads', icon: 'shield' },
         { title: 'Системы', url: '/workspace/systems', icon: 'cube' },
         { title: 'Допуски', url: '/workspace/entrances', icon: 'ticket' },
         { title: 'Страховки', url: '/workspace/insurances', icon: 'leaf' },

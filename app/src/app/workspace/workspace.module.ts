@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { WorkspaceRoutingModule } from './workspace-routing.module';
 
 import { Workspace } from './workspace';
+import { TermsModule } from '../terms/terms.module';
+import { AppFormsModule } from './forms/app.forms.module';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        WorkspaceRoutingModule
+        WorkspaceRoutingModule,
+        TermsModule.forChild(),
+        AppFormsModule.forRoot(),
     ],
     declarations: [Workspace]
 })

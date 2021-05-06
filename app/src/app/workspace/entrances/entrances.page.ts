@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { FormService } from '../forms/form.service';
 
 @Component({
-  selector: 'app-entrances',
-  templateUrl: './entrances.page.html',
-  styleUrls: ['./entrances.page.scss'],
+    selector: 'app-entrances',
+    templateUrl: './entrances.page.html',
+    styleUrls: ['./entrances.page.scss'],
 })
 export class EntrancesPage implements OnInit {
 
-  constructor() { }
+    constructor(
+        private formSrv: FormService
+    ){}
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    public addEnt(){
+        this.formSrv.openForm( 'entrance' )
+    }
 
 }
