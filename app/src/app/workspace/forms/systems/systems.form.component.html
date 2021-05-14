@@ -1,0 +1,12 @@
+<ng-container *ngFor="let field of fields">
+    <ion-item lines="full">
+        <ion-label position="floating">
+            {{ field.title }}
+        </ion-label>
+        <ion-input
+            *ngIf="field.type !== 'dict'"
+            [type]="field.type"
+        ></ion-input>
+    </ion-item>
+</ng-container>
+

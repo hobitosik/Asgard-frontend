@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IEntity, IField } from 'src/app/interfaces/entities.interfaces';
 
 @Component({
-    selector: 'app-aad-form',
-    templateUrl: './aad.form.component.html',
-    styleUrls: ['./aad.form.component.scss'],
+    selector: 'app-entrance.form',
+    templateUrl: './entrance.form.component.html',
+    styleUrls: ['./entrance.form.component.scss'],
 })
-export class AadFormComponent implements OnInit {
+export class EntranceFormComponent implements OnInit {
     @Input() entity: IEntity;
     public fields: IField[];
 
@@ -15,7 +15,7 @@ export class AadFormComponent implements OnInit {
     ){ }
 
     ngOnInit(){
-        // console.log('[DEV][AAD][INIT]', this)
+        // console.log('[DEV][ENTRANCE][INIT]', this)
         this.fields = this.entity.meta.fields;
     }
 
