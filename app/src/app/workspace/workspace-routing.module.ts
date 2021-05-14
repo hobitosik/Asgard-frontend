@@ -9,7 +9,7 @@ const routes: Routes = [
         path: '',
         component: Workspace,
         canActivate: [ AuthGuard ],
-        canActivateChild: [AuthGuard],
+        // canActivateChild: [AuthGuard],
         children: [{
             path: 'summary',
             loadChildren: () => import('./summary/summary.module').then( m => m.SummaryPageModule)

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { from, Observable, of } from 'rxjs';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -29,16 +29,19 @@ export class SrvService {
 
         получение словаря
         get/dict/dictKey
+
+        мета сущности
+        get/entkey/meta
     */
     
-    postOne$<T=any>( entKey, data ): Observable<T> {
+    postOne$<T=any>( entKey:string, data:any ): Observable<T> {
         return this.commonEntRequest$<T>('post', {
             entKey,
             data
         });
     }
 
-    saveOne$<T=any>( entKey, data, entId? ): Observable<T> {
+    saveOne$<T=any>( entKey:string, data:string, entId?:string ): Observable<T> {
         return this.commonEntRequest$<T>('post', { // patch
             entKey,
             data,
@@ -46,30 +49,37 @@ export class SrvService {
         });
     }
 
-    fetchOne$<T=any>( entKey, entId ): Observable<T> {
+    fetchOne$<T=any>( entKey:string, entId:string ): Observable<T> {
         return this.commonEntRequest$<T>('get', {
             entKey,
             entId,
         });
     }
 
-    deleteOne$<T=any>( entKey, entId ): Observable<T> {
+    deleteOne$<T=any>( entKey:string, entId:string ): Observable<T> {
         return this.commonEntRequest$<T>('delete', {
             entKey,
             entId,
         });
     }
 
-    fetchAll$<T=any>( entKey ): Observable<T> {
+    fetchAll$<T=any>( entKey:string ): Observable<T> {
         return this.commonEntRequest$<T>('get', {
             entKey,
         });
     }
 
-    fetchDict$<T=any>( dictKey ): Observable<T> {
+    fetchDict$<T=any>( dictKey:string ): Observable<T> {
         return this.commonEntRequest$<T>('get', {
             dictKey
         })
+    }
+
+    fetchMeta$<T=any>( entKey:string ): Observable<T>{
+        return this.commonEntRequest$<T>('get', {
+            entKey,
+            meta: true
+        });
     }
 
     private commonEntRequest$<T=any>( method:'post' | 'get' | 'delete' | 'put' | 'patch', o:{
@@ -77,6 +87,7 @@ export class SrvService {
         entId?: string,
         dictKey?: string,
         data?: any,
+        meta?: boolean,
         message?: string,
         caption?: string,
         captionErr?: string,
@@ -86,7 +97,9 @@ export class SrvService {
             ? `/asgard-api/dict/${o.dictKey}/`
             : o.entId
                 ? `/asgard-api/${o.entKey}/${o.entId}`
-                : `/asgard-api/${o.entKey}/`;
+                : o.meta
+                    ? `/asgard-api/${o.entKey}/meta`
+                    : `/asgard-api/${o.entKey}/`;
 
         let entityKey = o.dictKey
                             ? o.dictKey
@@ -106,10 +119,10 @@ export class SrvService {
                         return of(null);
                 }
             }),
-            mergeMap( response =>{
+            map( response =>{
                 console.log('[SRV][RESPONSE]:', response, '[OPTIONS]:', o);
                 if( response ) return response
-                else return null
+                else return of(null)
             }),
             catchError( error =>{
                 console.warn('[SRV][ERROR]', error)

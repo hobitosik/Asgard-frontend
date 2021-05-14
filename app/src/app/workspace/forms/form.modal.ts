@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { ModalController } from "@ionic/angular";
+import { IEntity } from "src/app/interfaces/entities.interfaces";
 import { SrvService } from "src/app/srv.service";
 
 @Component({
@@ -10,7 +11,7 @@ import { SrvService } from "src/app/srv.service";
 })
 export class FormModal implements OnInit {
     @Input() entKey: string = '';
-    @Input() entId: string = '';
+    @Input() entity: IEntity;
 
     form: FormGroup
 

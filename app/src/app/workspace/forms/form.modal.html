@@ -15,7 +15,7 @@
     <ng-container [ngSwitch]="entKey">
         <app-aad-form 
             *ngSwitchCase="'aad'"
-            [entId]="entId"
+            [entity]="entity"
         ></app-aad-form>
         <div *ngSwitchDefault>...</div>
     </ng-container>
