@@ -1,6 +1,6 @@
 <ion-header translucent>
     <ion-toolbar>
-        <ion-title>{{ entKey }} {{ entId ? '№' + entId : '' }}</ion-title>
+        <ion-title>{{ entKey | term }} {{ entId ? '№' + entId : '' }}</ion-title>
         <ion-buttons slot="end">
             <ion-button
                 (click)="close()"

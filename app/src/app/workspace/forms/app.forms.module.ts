@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormModal } from './form.modal';
 import { AadFormComponent } from './aad/aad.form.component';
 import { CommonModule } from '@angular/common';
+import { TermsModule } from 'src/app/terms/terms.module';
 
 
 
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common';
         CommonModule,
         ReactiveFormsModule,
         FormsModule,
+        TermsModule.forChild(),
     ]
 })
 export class AppFormsModule {
